@@ -227,6 +227,7 @@ void fanoDecoding(const string& encodedFile, const string& treeFile, const strin
     int bitCount = 8 * encodedBytes.size(); // общее количество бит
     cout << encodedBytes.size() << endl;
     int lastByteBits = bitCount % 8; // количество бит в последнем байте
+    
 
     if (lastByteBits > 0) {
         // Если в последнем байте есть биты, то используем его
