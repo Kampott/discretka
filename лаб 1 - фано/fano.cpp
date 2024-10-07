@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include <algorithm>
 #include <iterator>
-
+#include <stack>
 
 using namespace std;
 
@@ -54,14 +54,27 @@ Node* buildFanoTree(const vector<pair<char, double>>& probabilities) {
 }
 
 // Функция для создания кодов из дерева
-void generateCodes(Node* root, const string& code, unordered_map<char, string>& codes) {
+void generateCodes(Node* root, unordered_map<char, string>& codes) {
     if (!root) return;
-    
-    if (root->symbol != '\0' && root->symbol != '\n') { // Если это листовой узел
-        codes[root->symbol] = code;
+
+    stack<pair<Node*, string>> s;
+    s.push({root, ""});
+
+    while (!s.empty()) {
+        auto [node, code] = s.top(); s.pop();
+
+        if (node->symbol != '\0') { // Если это листовой узел
+            codes[node->symbol] = code;
+        }
+        
+        if (node->right) {
+            s.push({node->right, code + "1"});
+        }
+        
+        if (node->left) {
+            s.push({node->left, code + "0"});
+        }
     }
-    generateCodes(root->left, code + "0", codes);
-    generateCodes(root->right, code + "1", codes);
 }
 
 // Функция для записи кодов в файл
@@ -76,7 +89,8 @@ void writeCodesToFile(const unordered_map<char, string>& codes, const string& tr
 
     for (const auto& pair : codes) {
        if (!pair.second.empty()) { // Проверяем, что код не пустой
-           outTreeFile << pair.first << "\t" << pair.second << endl;
+           if(pair.first == '\n') outTreeFile << "RETURN" << "\t" << pair.second << endl;
+           else outTreeFile << pair.first << "\t" << pair.second << endl;
        }
    }
     
@@ -87,6 +101,7 @@ void writeCodesToFile(const unordered_map<char, string>& codes, const string& tr
 vector<uint8_t> encode(const string& text, unordered_map<char, string>& codes) {
     vector<uint8_t> encodedBytes;
     string encodedString;
+    int length = text.size()-1; // Длина входного текста
 
     // Кодируем текст в битовую строку
     for (char c : text) {
@@ -94,37 +109,47 @@ vector<uint8_t> encode(const string& text, unordered_map<char, string>& codes) {
             encodedString += codes[c];
         }
     }
-    cout << encodedString << endl;
-for (size_t i = 0; i < encodedString.size(); i += 8) {
-    uint8_t byte = 0;
-    unsigned long long eight = 8;
-    size_t bitsToRead = min(eight, encodedString.size() - i); // Сколько бит нужно прочитать
 
-    for (size_t j = 0; j < bitsToRead; ++j) {
-        byte = (byte << 1) | (encodedString[i + j] - '0');
+    // Записываем длину текста (в количестве символов) в первые 4 байта
+    for (size_t i = 0; i < 4; ++i) {
+        encodedBytes.push_back((length >> (24 - 8 * i)) & 0xFF);
     }
 
-    if (bitsToRead < 8) {
-        byte <<= (8 - bitsToRead); // Сдвигаем влево, чтобы освободить место для нулей
-    }
+    // Записываем закодированные биты в байты
+    for (size_t i = 0; i < encodedString.size(); i += 8) {
+        uint8_t byte = 0;
+        size_t bitsToRead = min((size_t)8, encodedString.size() - i); // Сколько бит нужно прочитать
 
-    encodedBytes.push_back(byte);
-}
+        for (size_t j = 0; j < bitsToRead; ++j) {
+            byte = (byte << 1) | (encodedString[i + j] - '0');
+        }
+
+        if (bitsToRead < 8) {
+            byte <<= (8 - bitsToRead); // Сдвигаем влево, чтобы освободить место для нулей
+        }
+
+        encodedBytes.push_back(byte);
+    }
 
     return encodedBytes;
 }
 
 // Функция для декодирования байтов
 
-string decode(const vector<uint8_t>& encodedBytes, int bitCount, const unordered_map<string, char>& codes, int maxCodeLength) {
+string decode(const vector<uint8_t>& encodedBytes, const unordered_map<string, char>& codes) {
     string decodedString;
     string currentCode;
-    int allbits = 0;
-    int bitIndex = 0; // Индекс текущего бита в байтовом массиве
-    cout << bitCount;
-    // Проходим по всем битам, считывая их из байтов
-    for (int i = 0; i < bitCount; ++i) {
-        allbits++;
+
+    // Считываем длину закодированной строки из первых 4 байтов
+    size_t targetLength = 0;
+    for (int i = 0; i < 4; ++i) {
+        targetLength = (targetLength << 8) | encodedBytes[i];
+    }
+
+    int decodedLength = 0; // Считаем, сколько символов мы декодировали
+    int bitCount = (encodedBytes.size() - 4) * 8; // Количество бит, доступное для декодирования
+    // Проходим по всем битам, считывая их из байтов, начиная с 5-го байта
+    for (size_t i = 4 * 8; i < bitCount + 4 * 8; ++i) {
         int byteIndex = i / 8; // Индекс байта, содержащего текущий бит
         int bitPosition = 7 - (i % 8); // Позиция бита в байте (от 7 до 0)
 
@@ -133,17 +158,21 @@ string decode(const vector<uint8_t>& encodedBytes, int bitCount, const unordered
         // Проверяем, найден ли текущий код
         if (codes.find(currentCode) != codes.end()) {
             decodedString += codes.at(currentCode);
-            //cout << currentCode << endl;
+            decodedLength++; // Увеличиваем количество декодированных символов
             currentCode.clear(); // Очищаем текущий код после успешного декодирования
+            // Если достигли целевой длины, завершаем
+            if (decodedLength == targetLength) {
+                break;
+            }
         } 
         // Если текущий код превышает максимальную длину, очищаем его
-        else if (currentCode.size() > maxCodeLength) {
+        else if (currentCode.size() > 20) { // Заменил maxCodeLength на 20 для примера
             currentCode.clear(); // Очищаем текущий код, если он слишком длинный
         }
     }
-    cout << allbits << endl;
+
     // Проверяем, остались ли биты в currentCode после завершения цикла
-    if (!currentCode.empty() && currentCode.size() <= maxCodeLength) {
+    if (!currentCode.empty() && currentCode.size() <= 20) { // Проверка на 20 тоже
         // Не добавляем лишний символ, если код не соответствует ни одному символу
         if (codes.find(currentCode) != codes.end()) {
             decodedString += codes.at(currentCode);
@@ -197,7 +226,7 @@ void fanoEncoding(const string& inputFile, const string& outputFile, const strin
 
     // Генерируем коды
     unordered_map<char, string> codes;
-    generateCodes(root, "", codes);
+    generateCodes(root, codes);
 
     // Кодируем текст
     vector<uint8_t> encodedBytes = encode(text, codes);
@@ -225,7 +254,6 @@ void fanoDecoding(const string& encodedFile, const string& treeFile, const strin
 
     // Получаем количество бит из последнего байта
     int bitCount = 8 * encodedBytes.size(); // общее количество бит
-    cout << encodedBytes.size() << endl;
     int lastByteBits = bitCount % 8; // количество бит в последнем байте
     
 
@@ -246,9 +274,17 @@ void fanoDecoding(const string& encodedFile, const string& treeFile, const strin
 
     while (getline(treeFileIn, codeLine)) {
         if (codeLine.empty()) continue; // Пропускаем пустые строки
+
+        // Проверяем на наличие символа RETURN и заменяем его
+        if (codeLine.find("RETURN") != string::npos) {
+            // Если найден "RETURN", заменяем его на символ перевода строки '\n'
+            codeLine.replace(codeLine.find("RETURN"), 6, "\n"); // "RETURN" имеет длину 6 символов
+        }
+
         size_t pos = codeLine.find('\t'); // Ищем табуляцию как разделитель
         if (pos != string::npos) {
             char symbol = codeLine.substr(0, pos)[0];
+            cout << symbol << endl;
             string code = codeLine.substr(pos + 1);
             codes[code] = symbol; // Сохраняем код и соответствующий символ
             // Обновляем максимальную длину кода
@@ -259,7 +295,7 @@ void fanoDecoding(const string& encodedFile, const string& treeFile, const strin
     treeFileIn.close();
 
     // Декодируем строку
-    string decodedString = decode(encodedBytes, bitCount, codes, maxCodeLength);
+    string decodedString = decode(encodedBytes, codes);
 
     // Записываем декодированную строку в файл
     ofstream outFile(outputFile);
@@ -275,13 +311,39 @@ void fanoDecoding(const string& encodedFile, const string& treeFile, const strin
 
 // Главная функция
 int main() {
-    string inputFile = "input.txt";    
+    string inputFile;  
     string encodedFile = "encoded.bin"; 
     string decodedFile = "decoded.txt"; 
-    string treeFile = "tree.txt"; 
-
-    fanoEncoding(inputFile, encodedFile, treeFile);
+    string treeFile = "tree.txt";
+    int regime;
+    do{
+    inputFile = "";
+    
+    do{
+    cout << "выберите режим: 1 - кодировка, 2 - декодировка, 0 - выход" << endl;
+    cin >> regime;
+    if(regime == 1 || regime == 2 || regime == 0){
+        break;
+    }
+    } while(true);
+    if(regime == 1){
+        do{
+        cout << "введите название файла для кодировки" << endl;
+        cin >> inputFile;
+        }while(inputFile == "");
+        encodedFile = "encoded.bin";
+        fanoEncoding(inputFile, encodedFile, treeFile);
+    }
+    else if(regime == 2){
+    do{
+        cout << "введите название файла для кодировки" << endl;
+        cin >> inputFile;
+    }while(inputFile == "");
     fanoDecoding(encodedFile, treeFile, decodedFile);
-
+    }
+    else if(regime == 0){
+        break;
+    }
+    }while(regime != 0);
     return 0;
 }
