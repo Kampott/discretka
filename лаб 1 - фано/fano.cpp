@@ -23,7 +23,33 @@ struct Node {
 bool compare(Node* a, Node* b) {
     return a->probability < b->probability;
 }
+Node* buildFanoRecursive(vector<Node*>& nodes, int start, int end) {
+    if (start == end) {
+        return nodes[start];
+    }
 
+    // Находим точку разделения
+    int split = start;
+    double total_prob = 0.0, left_prob = 0.0;
+    for (int i = start; i <= end; ++i) {
+        total_prob += nodes[i]->probability;
+    }
+
+    // Ищем позицию, где сумма вероятностей будет наиболее сбалансированной
+    for (int i = start; i <= end; ++i) {
+        left_prob += nodes[i]->probability;
+        if (left_prob >= total_prob / 2) {
+            split = i;
+            break;
+        }
+    }
+
+    Node* parent = new Node('\0', total_prob); // Создаем родительский узел
+    parent->left = buildFanoRecursive(nodes, start, split);   // Левая часть
+    parent->right = buildFanoRecursive(nodes, split + 1, end); // Правая часть
+
+    return parent;
+}
 // Функция для построения дерева Фано
 Node* buildFanoTree(const vector<pair<char, double>>& probabilities) {
     vector<Node*> nodes;
@@ -33,24 +59,13 @@ Node* buildFanoTree(const vector<pair<char, double>>& probabilities) {
         nodes.push_back(new Node(pair.first, pair.second));
     }
 
-    while (nodes.size() > 1) {
-        // Сортируем узлы по вероятности
-        sort(nodes.begin(), nodes.end(), compare);
+    // Сортируем узлы по вероятности в порядке убывания
+    sort(nodes.begin(), nodes.end(), [](Node* a, Node* b) {
+        return a->probability > b->probability;
+    });
 
-        // Объединяем два узла с наименьшей вероятностью
-        Node* left = nodes[0];
-        Node* right = nodes[1];
-        Node* parent = new Node('\0', left->probability + right->probability);
-        parent->left = left;
-        parent->right = right;
-
-        // Удаляем использованные узлы и добавляем родительский
-        nodes.erase(nodes.begin());
-        nodes.erase(nodes.begin());
-        nodes.push_back(parent);
-    }
-
-    return nodes[0]; // Возвращаем корень дерева
+    // Рекурсивно строим дерево Фано
+    return buildFanoRecursive(nodes, 0, nodes.size() - 1);
 }
 
 // Функция для создания кодов из дерева
@@ -66,11 +81,11 @@ void generateCodes(Node* root, unordered_map<char, string>& codes) {
         if (node->symbol != '\0') { // Если это листовой узел
             codes[node->symbol] = code;
         }
-        
+
         if (node->right) {
             s.push({node->right, code + "1"});
         }
-        
+
         if (node->left) {
             s.push({node->left, code + "0"});
         }
@@ -85,15 +100,13 @@ void writeCodesToFile(const unordered_map<char, string>& codes, const string& tr
         return;
     }
 
-   
-
     for (const auto& pair : codes) {
-       if (!pair.second.empty()) { // Проверяем, что код не пустой
-           if(pair.first == '\n') outTreeFile << "RETURN" << "\t" << pair.second << endl;
-           else outTreeFile << pair.first << "\t" << pair.second << endl;
-       }
-   }
-    
+        if (!pair.second.empty()) { // Проверяем, что код не пустой
+            if (pair.first == '\n') outTreeFile << "RETURN" << "\t" << pair.second << endl;
+            else outTreeFile << pair.first << "\t" << pair.second << endl;
+        }
+    }
+
     outTreeFile.close();
 }
 
@@ -101,7 +114,7 @@ void writeCodesToFile(const unordered_map<char, string>& codes, const string& tr
 vector<uint8_t> encode(const string& text, unordered_map<char, string>& codes) {
     vector<uint8_t> encodedBytes;
     string encodedString;
-    int length = text.size()-1; // Длина входного текста
+    int length = text.size() - 1; // Длина входного текста
 
     // Кодируем текст в битовую строку
     for (char c : text) {
@@ -164,9 +177,7 @@ string decode(const vector<uint8_t>& encodedBytes, const unordered_map<string, c
             if (decodedLength == targetLength) {
                 break;
             }
-        } 
-        // Если текущий код превышает максимальную длину, очищаем его
-        else if (currentCode.size() > 20) { // Заменил maxCodeLength на 20 для примера
+        } else if (currentCode.size() > 20) { // Заменил maxCodeLength на 20 для примера
             currentCode.clear(); // Очищаем текущий код, если он слишком длинный
         }
     }
@@ -311,6 +322,7 @@ void fanoDecoding(const string& encodedFile, const string& treeFile, const strin
 
 // Главная функция
 int main() {
+    setlocale(LC_ALL, "Russian");
     string inputFile;  
     string encodedFile = "encoded.bin"; 
     string decodedFile = "decoded.txt"; 
