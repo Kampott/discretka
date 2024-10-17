@@ -135,6 +135,7 @@ void writeCodesToFile(const unordered_map<char, string>& codes, const string& tr
     for (const auto& pair : codes) {
         if (!pair.second.empty()) { // ˜˜˜˜˜˜˜˜˜, ˜˜˜ ˜˜˜ ˜˜ ˜˜˜˜˜˜
             if (pair.first == '\n') outTreeFile << "RETURN" << "\t" << pair.second << endl;
+            //else if (pair.first == '\t') outTreeFile << "TAB" << "\t" << pair.second << endl;
             else outTreeFile << pair.first << "\t" << pair.second << endl;
         }
     }
@@ -297,7 +298,7 @@ void fanoEncoding(const string& inputFile, const string& outputFile, const strin
 void fanoDecoding(const string& encodedFile, const string& treeFile, const string& outputFile) {
     ifstream inFile(encodedFile, ios::binary);
     if (!inFile) {
-        cerr << "˜˜ ˜˜˜˜˜˜˜ ˜˜˜˜˜˜˜ ˜˜˜˜˜˜˜ ˜˜˜˜." << endl;
+        cerr << "Íå óäàåòñÿ íàéòè ôàéë." << endl;
         return;
     }
 
@@ -318,7 +319,7 @@ void fanoDecoding(const string& encodedFile, const string& treeFile, const strin
     unordered_map<string, char> codes; // ˜˜˜ ˜˜˜˜˜˜˜˜˜˜˜˜˜
     ifstream treeFileIn(treeFile);
     if (!treeFileIn) {
-        cerr << "˜˜ ˜˜˜˜˜˜˜ ˜˜˜˜˜˜˜ ˜˜˜˜ ˜ ˜˜˜˜˜˜." << endl;
+        cerr << "Ôàéë ñ äåðåâîì íå íàéäåí." << endl;
         return;
     }
 
@@ -333,6 +334,10 @@ void fanoDecoding(const string& encodedFile, const string& treeFile, const strin
             // ˜˜˜˜ ˜˜˜˜˜˜ "RETURN", ˜˜˜˜˜˜˜˜ ˜˜˜ ˜˜ ˜˜˜˜˜˜ ˜˜˜˜˜˜˜˜ ˜˜˜˜˜˜ '\n'
             codeLine.replace(codeLine.find("RETURN"), 6, "\n"); // "RETURN" ˜˜˜˜˜ ˜˜˜˜˜ 6 ˜˜˜˜˜˜˜˜
         }
+        /*
+        else if(codeLine.find("TAB") != string::npos){
+            codeLine.replace(codeLine.find("TAB"), 6, "\t");
+        }*/
 
         size_t pos = codeLine.find('\t'); // ˜˜˜˜ ˜˜˜˜˜˜˜˜˜ ˜˜˜ ˜˜˜˜˜˜˜˜˜˜˜
         if (pos != string::npos) {
@@ -354,7 +359,7 @@ void fanoDecoding(const string& encodedFile, const string& treeFile, const strin
     ofstream outFile(outputFile);
 
     if (!outFile) {
-        cerr << "˜˜ ˜˜˜˜˜˜˜ ˜˜˜˜˜˜˜ ˜˜˜˜˜˜˜˜ ˜˜˜˜." << endl;
+        cerr << "Íå óäàëîñü çàïèñàòü ôàéë." << endl;
         return;
     }
 
@@ -374,7 +379,7 @@ int main() {
     inputFile = "";
     
     do{
-    cout << "˜˜˜˜˜˜˜˜ ˜˜˜˜˜: 1 - ˜˜˜˜˜˜˜˜˜, 2 - ˜˜˜˜˜˜˜˜˜˜˜, 0 - ˜˜˜˜˜" << endl;
+    cout << "Âûáåðèòå ðåæèì: 1 - Êîäèðîâêà, 2 - Ðàñêîäèðîâêà, 0 - Âûõîä" << endl;
     cin >> regime;
     if(regime == 1 || regime == 2 || regime == 0){
         break;
@@ -382,7 +387,7 @@ int main() {
     } while(true);
     if(regime == 1){
         do{
-        cout << "˜˜˜˜˜˜˜ ˜˜˜˜˜˜˜˜ ˜˜˜˜˜ ˜˜˜ ˜˜˜˜˜˜˜˜˜" << endl;
+        cout << "Ââåäèòå íàçâàíèå ôàéëà:" << endl;
         cin >> inputFile;
         }while(inputFile == "");
         encodedFile = "encoded.bin";
@@ -390,7 +395,7 @@ int main() {
     }
     else if(regime == 2){
     do{
-        cout << "˜˜˜˜˜˜˜ ˜˜˜˜˜˜˜˜ ˜˜˜˜˜ ˜˜˜ ˜˜˜˜˜˜˜˜˜" << endl;
+        cout << "Ââåäèòå íàçâàíèå çàêîäèðîâàííîãî ôàéëà" << endl;
         cin >> inputFile;
     }while(inputFile == "");
     fanoDecoding(encodedFile, treeFile, decodedFile);
