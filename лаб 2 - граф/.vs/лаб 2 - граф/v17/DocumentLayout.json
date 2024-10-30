@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Anis\\Desktop\\Fac\\3 \u043A\u0443\u0440\u0441\\5 \u0441\u0435\u043C\\\u0434\u0438\u0441\u043A\u0440\u0435\u0442\u043A\u0430\\\u043B\u0430\u0431\u044B\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C03194F4-B20F-4D6C-A03F-16F17D4FEEC5}|\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444.vcxproj|C:\\Users\\Anis\\Desktop\\Fac\\3 \u043A\u0443\u0440\u0441\\5 \u0441\u0435\u043C\\\u0434\u0438\u0441\u043A\u0440\u0435\u0442\u043A\u0430\\\u043B\u0430\u0431\u044B\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\grid.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{C03194F4-B20F-4D6C-A03F-16F17D4FEEC5}|\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444.vcxproj|solutionrelative:\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\grid.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C03194F4-B20F-4D6C-A03F-16F17D4FEEC5}|\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444.vcxproj|C:\\Users\\Anis\\Desktop\\Fac\\3 \u043A\u0443\u0440\u0441\\5 \u0441\u0435\u043C\\\u0434\u0438\u0441\u043A\u0440\u0435\u0442\u043A\u0430\\\u043B\u0430\u0431\u044B\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\grid.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{C03194F4-B20F-4D6C-A03F-16F17D4FEEC5}|\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444.vcxproj|solutionrelative:\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\grid.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C03194F4-B20F-4D6C-A03F-16F17D4FEEC5}|\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444.vcxproj|C:\\Users\\Anis\\Desktop\\Fac\\3 \u043A\u0443\u0440\u0441\\5 \u0441\u0435\u043C\\\u0434\u0438\u0441\u043A\u0440\u0435\u0442\u043A\u0430\\\u043B\u0430\u0431\u044B\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{C03194F4-B20F-4D6C-A03F-16F17D4FEEC5}|\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444.vcxproj|solutionrelative:\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C03194F4-B20F-4D6C-A03F-16F17D4FEEC5}|\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444.vcxproj|C:\\Users\\Anis\\Desktop\\Fac\\3 \u043A\u0443\u0440\u0441\\5 \u0441\u0435\u043C\\\u0434\u0438\u0441\u043A\u0440\u0435\u0442\u043A\u0430\\\u043B\u0430\u0431\u044B\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\point.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{C03194F4-B20F-4D6C-A03F-16F17D4FEEC5}|\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444.vcxproj|solutionrelative:\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\point.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Point.h",
+              "DocumentMoniker": "C:\\Users\\Anis\\Desktop\\Fac\\3 \u043A\u0443\u0440\u0441\\5 \u0441\u0435\u043C\\\u0434\u0438\u0441\u043A\u0440\u0435\u0442\u043A\u0430\\\u043B\u0430\u0431\u044B\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\Point.h",
+              "RelativeDocumentMoniker": "\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\Point.h",
+              "ToolTip": "C:\\Users\\Anis\\Desktop\\Fac\\3 \u043A\u0443\u0440\u0441\\5 \u0441\u0435\u043C\\\u0434\u0438\u0441\u043A\u0440\u0435\u0442\u043A\u0430\\\u043B\u0430\u0431\u044B\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\Point.h",
+              "RelativeToolTip": "\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\Point.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-10-28T19:48:51.213Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Grid.h",
+              "DocumentMoniker": "C:\\Users\\Anis\\Desktop\\Fac\\3 \u043A\u0443\u0440\u0441\\5 \u0441\u0435\u043C\\\u0434\u0438\u0441\u043A\u0440\u0435\u0442\u043A\u0430\\\u043B\u0430\u0431\u044B\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\Grid.h",
+              "RelativeDocumentMoniker": "\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\Grid.h",
+              "ToolTip": "C:\\Users\\Anis\\Desktop\\Fac\\3 \u043A\u0443\u0440\u0441\\5 \u0441\u0435\u043C\\\u0434\u0438\u0441\u043A\u0440\u0435\u0442\u043A\u0430\\\u043B\u0430\u0431\u044B\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\Grid.h",
+              "RelativeToolTip": "\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\Grid.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-10-28T19:48:43.754Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Grid.cpp",
+              "DocumentMoniker": "C:\\Users\\Anis\\Desktop\\Fac\\3 \u043A\u0443\u0440\u0441\\5 \u0441\u0435\u043C\\\u0434\u0438\u0441\u043A\u0440\u0435\u0442\u043A\u0430\\\u043B\u0430\u0431\u044B\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\Grid.cpp",
+              "RelativeDocumentMoniker": "\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\Grid.cpp",
+              "ToolTip": "C:\\Users\\Anis\\Desktop\\Fac\\3 \u043A\u0443\u0440\u0441\\5 \u0441\u0435\u043C\\\u0434\u0438\u0441\u043A\u0440\u0435\u0442\u043A\u0430\\\u043B\u0430\u0431\u044B\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\Grid.cpp",
+              "RelativeToolTip": "\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\Grid.cpp",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAACcAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-10-28T19:48:39.781Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "main.cpp",
+              "DocumentMoniker": "C:\\Users\\Anis\\Desktop\\Fac\\3 \u043A\u0443\u0440\u0441\\5 \u0441\u0435\u043C\\\u0434\u0438\u0441\u043A\u0440\u0435\u0442\u043A\u0430\\\u043B\u0430\u0431\u044B\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\main.cpp",
+              "RelativeDocumentMoniker": "\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\main.cpp",
+              "ToolTip": "C:\\Users\\Anis\\Desktop\\Fac\\3 \u043A\u0443\u0440\u0441\\5 \u0441\u0435\u043C\\\u0434\u0438\u0441\u043A\u0440\u0435\u0442\u043A\u0430\\\u043B\u0430\u0431\u044B\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\main.cpp",
+              "RelativeToolTip": "\u043B\u0430\u0431 2 - \u0433\u0440\u0430\u0444\\main.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGgAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-10-28T19:40:22.268Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
