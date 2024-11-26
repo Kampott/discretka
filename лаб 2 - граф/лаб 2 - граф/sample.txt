@@ -1,5 +1,0 @@
-width: 20
-height: 20
-start: 0 3
-finish: 0 4
-walls: 1 2 3 4
